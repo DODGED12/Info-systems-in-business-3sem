@@ -6,7 +6,6 @@ public class OrderCalculator {
     private static final int MAX_QUANTITY = 10_000;
     private static final double MAX_PRICE = 5_000_000.0;
     private static final double MAX_DISCOUNT = 30.0;
-    // Вариант 1: ставка НДС 10 % (единственное место, где хранится ставка)
     private static final double VAT_RATE = 10.0;
 
     public static void main(String[] args) {
@@ -32,7 +31,6 @@ public class OrderCalculator {
         }
     }
 
-    /** Читает одну строку; пустой ввод считается контролируемой ошибкой. */
     private static String readValue(Scanner sc) {
         if (!sc.hasNextLine()) {
             throw new IllegalStateException("значение не введено");
@@ -44,7 +42,6 @@ public class OrderCalculator {
         return text;
     }
 
-    /** Возвращает текст ошибки или пустую строку, если данные корректны. */
     static String errorMessage(int quantity, double price, double discount) {
         if (quantity <= 0 || quantity > MAX_QUANTITY) {
             return "количество должно быть от 1 до " + MAX_QUANTITY;
@@ -66,12 +63,10 @@ public class OrderCalculator {
         return round2(quantity * price);
     }
 
-    /** discountPercent - проценты, а не рубли. */
     static double applyDiscount(double base, double discountPercent) {
         return round2(base - base * discountPercent / 100.0);
     }
 
-    /** НДС считается от суммы после скидки. */
     static double calculateVat(double amountAfterDiscount) {
         return round2(amountAfterDiscount * VAT_RATE / 100.0);
     }
